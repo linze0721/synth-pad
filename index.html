@@ -79,20 +79,18 @@
 
       <section class="lg:col-span-4 rounded-2xl border border-surface-border bg-surface-raised p-4 space-y-4">
         <h2 class="text-xs font-semibold uppercase tracking-widest text-slate-400">Oscillator</h2>
-        <div class="grid grid-cols-2 gap-2">
-          <button type="button" class="px-3 py-2 rounded-lg text-xs font-medium border border-surface-border bg-surface-panel text-slate-400 hover:border-slate-500">Sine</button>
-          <button type="button" class="px-3 py-2 rounded-lg text-xs font-medium border border-accent bg-accent/20 text-accent-glow shadow-inner shadow-accent/20">Sawtooth</button>
-          <button type="button" class="px-3 py-2 rounded-lg text-xs font-medium border border-surface-border bg-surface-panel text-slate-400 hover:border-slate-500">Square</button>
-          <button type="button" class="px-3 py-2 rounded-lg text-xs font-medium border border-surface-border bg-surface-panel text-slate-400 hover:border-slate-500">Triangle</button>
+        <div class="grid grid-cols-2 gap-2" id="waveform-group" role="group" aria-label="Oscillator waveform">
+          <button type="button" id="waveform-sine" data-waveform="sine" aria-pressed="false" class="px-3 py-2 rounded-lg text-xs font-medium border border-surface-border bg-surface-panel text-slate-400 hover:border-slate-500">Sine</button>
+          <button type="button" id="waveform-sawtooth" data-waveform="sawtooth" aria-pressed="true" class="px-3 py-2 rounded-lg text-xs font-medium border border-accent bg-accent/20 text-accent-glow shadow-inner shadow-accent/20">Sawtooth</button>
+          <button type="button" id="waveform-square" data-waveform="square" aria-pressed="false" class="px-3 py-2 rounded-lg text-xs font-medium border border-surface-border bg-surface-panel text-slate-400 hover:border-slate-500">Square</button>
+          <button type="button" id="waveform-triangle" data-waveform="triangle" aria-pressed="false" class="px-3 py-2 rounded-lg text-xs font-medium border border-surface-border bg-surface-panel text-slate-400 hover:border-slate-500">Triangle</button>
         </div>
         <div>
           <div class="flex justify-between items-baseline mb-2">
             <span class="control-label font-semibold uppercase text-slate-400">Master volume</span>
-            <span class="font-mono text-xs text-accent-glow">72%</span>
+            <span id="master-volume-value" class="font-mono text-xs text-accent-glow">80%</span>
           </div>
-          <div class="h-2 rounded-full slider-track relative">
-            <div class="absolute right-[28%] top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-white shadow-md border-2 border-accent"></div>
-          </div>
+          <input type="range" id="master-volume" class="param-range w-full" min="0" max="100" step="1" value="80" aria-label="Master volume" />
         </div>
       </section>
 
@@ -100,36 +98,36 @@
         <h2 class="text-xs font-semibold uppercase tracking-widest text-slate-400 mb-4">Amp envelope (ADSR)</h2>
         <div class="grid grid-cols-4 gap-3">
           <div class="flex flex-col items-center gap-2">
-            <div class="relative w-14 h-14 rounded-full bg-surface-panel border border-surface-border flex items-center justify-center">
-              <div class="absolute inset-1 rounded-full knob-ring"></div>
-              <span class="relative text-[10px] font-mono text-slate-300">A</span>
-            </div>
+            <label class="relative w-14 h-14 rounded-full bg-surface-panel border border-surface-border flex items-center justify-center cursor-pointer" for="amp-a">
+              <span class="relative text-[10px] font-mono text-slate-300 pointer-events-none">A</span>
+            </label>
             <span class="control-label text-slate-500 uppercase">Attack</span>
-            <span class="font-mono text-[10px] text-slate-400">12 ms</span>
+            <input type="range" id="amp-a" class="param-range param-range--knob w-full max-w-[4.5rem]" min="1" max="2000" step="1" value="10" aria-label="Amp attack" />
+            <span id="amp-a-value" class="font-mono text-[10px] text-slate-400">10 ms</span>
           </div>
           <div class="flex flex-col items-center gap-2">
-            <div class="relative w-14 h-14 rounded-full bg-surface-panel border border-surface-border flex items-center justify-center">
-              <div class="absolute inset-1 rounded-full knob-ring" style="background: conic-gradient(from 225deg, #7c5cff 0deg, #7c5cff 90deg, #2a3348 90deg);"></div>
-              <span class="relative text-[10px] font-mono text-slate-300">D</span>
-            </div>
+            <label class="relative w-14 h-14 rounded-full bg-surface-panel border border-surface-border flex items-center justify-center cursor-pointer" for="amp-d">
+              <span class="relative text-[10px] font-mono text-slate-300 pointer-events-none">D</span>
+            </label>
             <span class="control-label text-slate-500 uppercase">Decay</span>
-            <span class="font-mono text-[10px] text-slate-400">180 ms</span>
+            <input type="range" id="amp-d" class="param-range param-range--knob w-full max-w-[4.5rem]" min="1" max="2000" step="1" value="200" aria-label="Amp decay" />
+            <span id="amp-d-value" class="font-mono text-[10px] text-slate-400">200 ms</span>
           </div>
           <div class="flex flex-col items-center gap-2">
-            <div class="relative w-14 h-14 rounded-full bg-surface-panel border border-surface-border flex items-center justify-center">
-              <div class="absolute inset-1 rounded-full knob-ring" style="background: conic-gradient(from 225deg, #7c5cff 0deg, #7c5cff 200deg, #2a3348 200deg);"></div>
-              <span class="relative text-[10px] font-mono text-slate-300">S</span>
-            </div>
+            <label class="relative w-14 h-14 rounded-full bg-surface-panel border border-surface-border flex items-center justify-center cursor-pointer" for="amp-s">
+              <span class="relative text-[10px] font-mono text-slate-300 pointer-events-none">S</span>
+            </label>
             <span class="control-label text-slate-500 uppercase">Sustain</span>
-            <span class="font-mono text-[10px] text-slate-400">65%</span>
+            <input type="range" id="amp-s" class="param-range param-range--knob w-full max-w-[4.5rem]" min="0" max="100" step="1" value="60" aria-label="Amp sustain" />
+            <span id="amp-s-value" class="font-mono text-[10px] text-slate-400">60%</span>
           </div>
           <div class="flex flex-col items-center gap-2">
-            <div class="relative w-14 h-14 rounded-full bg-surface-panel border border-surface-border flex items-center justify-center">
-              <div class="absolute inset-1 rounded-full knob-ring" style="background: conic-gradient(from 225deg, #7c5cff 0deg, #7c5cff 110deg, #2a3348 110deg);"></div>
-              <span class="relative text-[10px] font-mono text-slate-300">R</span>
-            </div>
+            <label class="relative w-14 h-14 rounded-full bg-surface-panel border border-surface-border flex items-center justify-center cursor-pointer" for="amp-r">
+              <span class="relative text-[10px] font-mono text-slate-300 pointer-events-none">R</span>
+            </label>
             <span class="control-label text-slate-500 uppercase">Release</span>
-            <span class="font-mono text-[10px] text-slate-400">320 ms</span>
+            <input type="range" id="amp-r" class="param-range param-range--knob w-full max-w-[4.5rem]" min="1" max="3000" step="1" value="300" aria-label="Amp release" />
+            <span id="amp-r-value" class="font-mono text-[10px] text-slate-400">300 ms</span>
           </div>
         </div>
       </section>
@@ -137,29 +135,45 @@
       <section class="lg:col-span-4 rounded-2xl border border-surface-border bg-surface-raised p-4 space-y-3">
         <div class="flex justify-between items-center">
           <h2 class="text-xs font-semibold uppercase tracking-widest text-slate-400">Filter</h2>
-          <label class="flex items-center gap-2 cursor-pointer">
+          <button type="button" id="filter-fe-env" class="flex items-center gap-2 cursor-pointer bg-transparent border-0 p-0" role="switch" aria-checked="false" aria-label="Filter envelope">
             <span class="text-[10px] text-slate-500 uppercase">FE env</span>
-            <div class="w-9 h-5 rounded-full bg-accent relative">
-              <div class="absolute right-0.5 top-0.5 w-4 h-4 rounded-full bg-white shadow"></div>
-            </div>
-          </label>
+            <span data-fe-track class="w-9 h-5 rounded-full bg-surface-panel relative inline-block">
+              <span data-fe-knob class="absolute left-0.5 top-0.5 w-4 h-4 rounded-full bg-white shadow"></span>
+            </span>
+          </button>
         </div>
         <div class="space-y-3">
           <div>
-            <div class="flex justify-between mb-1"><span class="control-label uppercase text-slate-500">Cutoff</span><span class="font-mono text-[10px]">2.4 kHz</span></div>
-            <div class="h-1.5 rounded-full bg-surface-panel"><div class="h-full w-[55%] rounded-full bg-gradient-to-r from-accent-dim to-accent"></div></div>
+            <div class="flex justify-between mb-1"><span class="control-label uppercase text-slate-500">Cutoff</span><span id="filter-cutoff-value" class="font-mono text-[10px]">2.0 kHz</span></div>
+            <input type="range" id="filter-cutoff" class="param-range param-range--thin w-full" min="80" max="12000" step="10" value="2000" aria-label="Filter cutoff" />
           </div>
           <div>
-            <div class="flex justify-between mb-1"><span class="control-label uppercase text-slate-500">Resonance (Q)</span><span class="font-mono text-[10px]">1.2</span></div>
-            <div class="h-1.5 rounded-full bg-surface-panel"><div class="h-full w-[30%] rounded-full bg-gradient-to-r from-accent-dim to-accent"></div></div>
+            <div class="flex justify-between mb-1"><span class="control-label uppercase text-slate-500">Resonance (Q)</span><span id="filter-resonance-value" class="font-mono text-[10px]">1.0</span></div>
+            <input type="range" id="filter-resonance" class="param-range param-range--thin w-full" min="0.1" max="18" step="0.1" value="1" aria-label="Filter resonance" />
           </div>
         </div>
-        <div class="pt-2 border-t border-surface-border grid grid-cols-4 gap-2 opacity-100">
+        <div id="filter-fe-adsr" class="pt-2 border-t border-surface-border grid grid-cols-4 gap-2 opacity-40 pointer-events-none">
           <p class="col-span-4 text-[10px] text-slate-500 uppercase tracking-wider mb-1">Filter envelope ADSR</p>
-          <div class="text-center"><div class="h-8 rounded-lg bg-surface-panel border border-surface-border flex items-center justify-center text-[10px] font-mono">A</div></div>
-          <div class="text-center"><div class="h-8 rounded-lg bg-surface-panel border border-surface-border flex items-center justify-center text-[10px] font-mono">D</div></div>
-          <div class="text-center"><div class="h-8 rounded-lg bg-surface-panel border border-surface-border flex items-center justify-center text-[10px] font-mono">S</div></div>
-          <div class="text-center"><div class="h-8 rounded-lg bg-surface-panel border border-surface-border flex items-center justify-center text-[10px] font-mono">R</div></div>
+          <div class="text-center flex flex-col gap-1">
+            <span class="text-[10px] font-mono text-slate-500">A</span>
+            <input type="range" id="fe-a" class="param-range param-range--thin w-full" min="1" max="2000" step="1" value="50" aria-label="Filter env attack" />
+            <span id="fe-a-value" class="font-mono text-[9px] text-slate-500">50 ms</span>
+          </div>
+          <div class="text-center flex flex-col gap-1">
+            <span class="text-[10px] font-mono text-slate-500">D</span>
+            <input type="range" id="fe-d" class="param-range param-range--thin w-full" min="1" max="2000" step="1" value="150" aria-label="Filter env decay" />
+            <span id="fe-d-value" class="font-mono text-[9px] text-slate-500">150 ms</span>
+          </div>
+          <div class="text-center flex flex-col gap-1">
+            <span class="text-[10px] font-mono text-slate-500">S</span>
+            <input type="range" id="fe-s" class="param-range param-range--thin w-full" min="0" max="100" step="1" value="50" aria-label="Filter env sustain" />
+            <span id="fe-s-value" class="font-mono text-[9px] text-slate-500">50%</span>
+          </div>
+          <div class="text-center flex flex-col gap-1">
+            <span class="text-[10px] font-mono text-slate-500">R</span>
+            <input type="range" id="fe-r" class="param-range param-range--thin w-full" min="1" max="2000" step="1" value="200" aria-label="Filter env release" />
+            <span id="fe-r-value" class="font-mono text-[9px] text-slate-500">200 ms</span>
+          </div>
         </div>
       </section>
 
@@ -167,16 +181,16 @@
         <h2 class="text-xs font-semibold uppercase tracking-widest text-slate-400">Stereo delay</h2>
         <div class="grid sm:grid-cols-3 gap-4">
           <div>
-            <div class="flex justify-between mb-1"><span class="control-label uppercase text-slate-500">Time</span><span class="font-mono text-[10px]">375 ms</span></div>
-            <div class="h-2 rounded-full slider-track" style="background: linear-gradient(90deg, #7c5cff 0%, #7c5cff 38%, #2a3348 38%);"></div>
+            <div class="flex justify-between mb-1"><span class="control-label uppercase text-slate-500">Time</span><span id="delay-time-value" class="font-mono text-[10px]">350 ms</span></div>
+            <input type="range" id="delay-time" class="param-range w-full" min="0" max="2000" step="5" value="350" aria-label="Delay time" />
           </div>
           <div>
-            <div class="flex justify-between mb-1"><span class="control-label uppercase text-slate-500">Feedback</span><span class="font-mono text-[10px]">42%</span></div>
-            <div class="h-2 rounded-full bg-surface-panel"><div class="h-full w-[42%] rounded-full bg-accent/80"></div></div>
+            <div class="flex justify-between mb-1"><span class="control-label uppercase text-slate-500">Feedback</span><span id="delay-feedback-value" class="font-mono text-[10px]">35%</span></div>
+            <input type="range" id="delay-feedback" class="param-range w-full" min="0" max="95" step="1" value="35" aria-label="Delay feedback" />
           </div>
           <div>
-            <div class="flex justify-between mb-1"><span class="control-label uppercase text-slate-500">Wet / dry</span><span class="font-mono text-[10px]">28% wet</span></div>
-            <div class="h-2 rounded-full bg-surface-panel"><div class="h-full w-[28%] rounded-full bg-accent/80"></div></div>
+            <div class="flex justify-between mb-1"><span class="control-label uppercase text-slate-500">Wet / dry</span><span id="delay-mix-value" class="font-mono text-[10px]">35% wet</span></div>
+            <input type="range" id="delay-mix" class="param-range w-full" min="0" max="100" step="1" value="35" aria-label="Delay wet mix" />
           </div>
         </div>
       </section>

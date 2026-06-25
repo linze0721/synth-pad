@@ -60,3 +60,41 @@ body {
   font-size: 0.65rem;
   letter-spacing: 0.08em;
 }
+
+.param-range {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 0.5rem;
+  border-radius: 9999px;
+  background: var(--surface-border);
+  outline: none;
+}
+
+.param-range--thin {
+  height: 0.375rem;
+}
+
+.param-range--knob {
+  height: 0.35rem;
+}
+
+.param-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid var(--accent);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+  cursor: pointer;
+}
+
+.param-range::-moz-range-thumb {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid var(--accent);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+  cursor: pointer;
+}
