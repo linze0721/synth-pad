@@ -1,3 +1,5 @@
+import { VoiceManager } from './VoiceManager.js';
+
 const MAX_DELAY_SEC = 2;
 
 let engineInstance = null;
@@ -83,6 +85,8 @@ export function createAudioEngine() {
   let delayGraph = null;
   /** @type {GainNode | null} */
   let sourceInput = null;
+  /** @type {VoiceManager | null} */
+  let voiceManager = null;
 
   let gestureListenersAttached = false;
 
@@ -108,6 +112,8 @@ export function createAudioEngine() {
     delayGraph.output.connect(masterGain);
     masterGain.connect(analyser);
     analyser.connect(ctx.destination);
+
+    voiceManager = new VoiceManager(ctx, sourceInput);
 
     return true;
   }
@@ -172,6 +178,11 @@ export function createAudioEngine() {
     get masterGainNode() {
       ensureGraph();
       return masterGain;
+    },
+
+    get voiceManager() {
+      ensureGraph();
+      return voiceManager;
     },
 
     init() {
