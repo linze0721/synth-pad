@@ -55,13 +55,11 @@
         <span class="text-[10px] text-slate-500 font-mono">AnalyserNode · realtime</span>
       </div>
       <div class="relative h-28 sm:h-36 md:h-40 wave-canvas">
-        <svg class="absolute inset-0 w-full h-full text-accent/80" preserveAspectRatio="none" viewBox="0 0 800 120">
-          <path fill="none" stroke="currentColor" stroke-width="2" opacity="0.9"
-            d="M0,60 Q20,20 40,60 T80,60 T120,45 T160,70 T200,55 T240,60 T280,35 T320,65 T360,50 T400,60 T440,40 T480,58 T520,52 T560,60 T600,30 T640,68 T680,55 T720,60 T760,42 T800,60" />
-          <path fill="none" stroke="currentColor" stroke-width="1" opacity="0.25"
-            d="M0,60 L800,60" />
-        </svg>
-        <div class="absolute bottom-2 right-3 text-[10px] text-slate-600 font-mono">canvas placeholder</div>
+        <canvas
+          id="waveform-canvas"
+          class="absolute inset-0 block w-full h-full"
+          aria-label="Realtime audio waveform"
+        ></canvas>
       </div>
     </section>
 
