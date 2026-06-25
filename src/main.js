@@ -3,6 +3,11 @@ import javascriptLogo from './assets/javascript.svg'
 import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
 import { setupCounter } from './counter.js'
+import { createAudioEngine } from './audio/AudioEngine.js'
+
+const audioEngine = createAudioEngine()
+audioEngine.init()
+audioEngine.attachUserGestureResume()
 
 document.querySelector('#app').innerHTML = `
 <section id="center">
