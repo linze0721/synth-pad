@@ -1,13 +1,13 @@
 import './style.css'
-
 import { createAudioEngine } from './audio/AudioEngine.js'
-import { startWaveform } from './ui/waveform.js'
+import { initKeyboard } from './input/keyboard.js'
 
 const engine = createAudioEngine()
 
-if (engine.available) {
+if (!engine.available) {
+  console.warn(engine.unavailableMessage)
+} else {
   engine.init()
   engine.attachUserGestureResume()
-  void engine.resume()
-  startWaveform(engine, '#waveform-canvas')
+  initKeyboard(engine)
 }

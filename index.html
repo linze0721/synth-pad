@@ -221,59 +221,59 @@
         <span class="text-[10px] uppercase tracking-widest text-slate-500">Virtual keyboard</span>
         <div class="flex items-center gap-2 font-mono text-xs">
           <span class="text-slate-500">Octave</span>
-          <span class="px-2 py-0.5 rounded-md bg-surface-panel border border-accent/40 text-accent-glow font-semibold">3</span>
+          <span id="keyboard-octave" data-octave="3" class="px-2 py-0.5 rounded-md bg-surface-panel border border-accent/40 text-accent-glow font-semibold">3</span>
           <span class="text-slate-600 text-[10px]">(, ↓ · . ↑)</span>
         </div>
       </div>
-      <div class="relative mx-auto max-w-3xl h-[100px] sm:h-[120px] md:h-[132px] select-none">
+      <div id="virtual-keyboard" class="relative mx-auto max-w-3xl h-[100px] sm:h-[120px] md:h-[132px] select-none">
         <div class="absolute inset-0 flex">
-          <div class="key-white active flex-1 rounded-b-lg mx-[1px] relative flex flex-col justify-end items-center pb-2">
+          <div class="key-white flex-1 rounded-b-lg mx-[1px] relative flex flex-col justify-end items-center pb-2 cursor-pointer" data-key="z" data-semitone="0" role="button" tabindex="-1">
             <span class="text-[9px] sm:text-[10px] font-mono font-medium text-slate-600 key-label">Z</span>
           </div>
-          <div class="key-white flex-1 rounded-b-lg mx-[1px] relative flex flex-col justify-end items-center pb-2">
+          <div class="key-white flex-1 rounded-b-lg mx-[1px] relative flex flex-col justify-end items-center pb-2 cursor-pointer" data-key="x" data-semitone="2" role="button" tabindex="-1">
             <span class="text-[9px] sm:text-[10px] font-mono font-medium text-slate-600">X</span>
           </div>
-          <div class="key-white flex-1 rounded-b-lg mx-[1px] relative flex flex-col justify-end items-center pb-2">
+          <div class="key-white flex-1 rounded-b-lg mx-[1px] relative flex flex-col justify-end items-center pb-2 cursor-pointer" data-key="c" data-semitone="4" role="button" tabindex="-1">
             <span class="text-[9px] sm:text-[10px] font-mono font-medium text-slate-600">C</span>
           </div>
-          <div class="key-white flex-1 rounded-b-lg mx-[1px] relative flex flex-col justify-end items-center pb-2">
+          <div class="key-white flex-1 rounded-b-lg mx-[1px] relative flex flex-col justify-end items-center pb-2 cursor-pointer" data-key="v" data-semitone="5" role="button" tabindex="-1">
             <span class="text-[9px] sm:text-[10px] font-mono font-medium text-slate-600">V</span>
           </div>
-          <div class="key-white flex-1 rounded-b-lg mx-[1px] relative flex flex-col justify-end items-center pb-2">
+          <div class="key-white flex-1 rounded-b-lg mx-[1px] relative flex flex-col justify-end items-center pb-2 cursor-pointer" data-key="b" data-semitone="7" role="button" tabindex="-1">
             <span class="text-[9px] sm:text-[10px] font-mono font-medium text-slate-600">B</span>
           </div>
-          <div class="key-white flex-1 rounded-b-lg mx-[1px] relative flex flex-col justify-end items-center pb-2">
+          <div class="key-white flex-1 rounded-b-lg mx-[1px] relative flex flex-col justify-end items-center pb-2 cursor-pointer" data-key="n" data-semitone="9" role="button" tabindex="-1">
             <span class="text-[9px] sm:text-[10px] font-mono font-medium text-slate-600">N</span>
           </div>
-          <div class="key-white flex-1 rounded-b-lg mx-[1px] relative flex flex-col justify-end items-center pb-2">
+          <div class="key-white flex-1 rounded-b-lg mx-[1px] relative flex flex-col justify-end items-center pb-2 cursor-pointer" data-key="m" data-semitone="11" role="button" tabindex="-1">
             <span class="text-[9px] sm:text-[10px] font-mono font-medium text-slate-600">M</span>
           </div>
-          <div class="key-white flex-1 rounded-b-lg mx-[1px] relative flex flex-col justify-end items-center pb-2">
+          <div class="key-white flex-1 rounded-b-lg mx-[1px] relative flex flex-col justify-end items-center pb-2 opacity-80" aria-hidden="true" title="Octave down (comma)">
             <span class="text-[9px] sm:text-[10px] font-mono font-medium text-slate-600">,</span>
           </div>
-          <div class="key-white flex-1 rounded-b-lg mx-[1px] relative flex flex-col justify-end items-center pb-2">
+          <div class="key-white flex-1 rounded-b-lg mx-[1px] relative flex flex-col justify-end items-center pb-2 opacity-80" aria-hidden="true" title="Octave up (period)">
             <span class="text-[9px] sm:text-[10px] font-mono font-medium text-slate-600">.</span>
           </div>
         </div>
         <div class="absolute top-0 left-0 right-0 h-[58%] sm:h-[60%] pointer-events-none flex px-[2%]">
           <div class="w-[9%]"></div>
-          <div class="key-black active w-[7%] rounded-b-md mx-[0.5%] pointer-events-auto flex items-end justify-center pb-1">
+          <div class="key-black w-[7%] rounded-b-md mx-[0.5%] pointer-events-auto flex items-end justify-center pb-1 cursor-pointer" data-key="s" data-semitone="1" role="button" tabindex="-1">
             <span class="text-[8px] sm:text-[9px] font-mono text-slate-400">S</span>
           </div>
           <div class="w-[2%]"></div>
-          <div class="key-black w-[7%] rounded-b-md mx-[0.5%] pointer-events-auto flex items-end justify-center pb-1">
+          <div class="key-black w-[7%] rounded-b-md mx-[0.5%] pointer-events-auto flex items-end justify-center pb-1 cursor-pointer" data-key="d" data-semitone="3" role="button" tabindex="-1">
             <span class="text-[8px] sm:text-[9px] font-mono text-slate-400">D</span>
           </div>
           <div class="w-[9%]"></div>
-          <div class="key-black w-[7%] rounded-b-md mx-[0.5%] pointer-events-auto flex items-end justify-center pb-1">
+          <div class="key-black w-[7%] rounded-b-md mx-[0.5%] pointer-events-auto flex items-end justify-center pb-1 cursor-pointer" data-key="g" data-semitone="6" role="button" tabindex="-1">
             <span class="text-[8px] sm:text-[9px] font-mono text-slate-400">G</span>
           </div>
           <div class="w-[2%]"></div>
-          <div class="key-black w-[7%] rounded-b-md mx-[0.5%] pointer-events-auto flex items-end justify-center pb-1">
+          <div class="key-black w-[7%] rounded-b-md mx-[0.5%] pointer-events-auto flex items-end justify-center pb-1 cursor-pointer" data-key="h" data-semitone="8" role="button" tabindex="-1">
             <span class="text-[8px] sm:text-[9px] font-mono text-slate-400">H</span>
           </div>
           <div class="w-[2%]"></div>
-          <div class="key-black w-[7%] rounded-b-md mx-[0.5%] pointer-events-auto flex items-end justify-center pb-1">
+          <div class="key-black w-[7%] rounded-b-md mx-[0.5%] pointer-events-auto flex items-end justify-center pb-1 cursor-pointer" data-key="j" data-semitone="10" role="button" tabindex="-1">
             <span class="text-[8px] sm:text-[9px] font-mono text-slate-400">J</span>
           </div>
           <div class="flex-1"></div>
