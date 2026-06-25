@@ -198,33 +198,22 @@
       <section class="lg:col-span-6 rounded-2xl border border-surface-border bg-surface-raised p-4 space-y-3">
         <h2 class="text-xs font-semibold uppercase tracking-widest text-slate-400">Presets</h2>
         <div class="flex flex-wrap gap-2">
-          <input type="text" placeholder="Preset name…" readonly
-            class="flex-1 min-w-[140px] px-3 py-2 rounded-lg bg-surface-panel border border-surface-border text-sm text-slate-300 placeholder:text-slate-600 focus:outline-none focus:border-accent/50" />
-          <button type="button" class="px-4 py-2 rounded-lg bg-accent hover:bg-accent-glow text-white text-xs font-semibold uppercase tracking-wide shadow-lg shadow-accent/30">Save</button>
+          <input
+            id="preset-name"
+            type="text"
+            placeholder="Preset name…"
+            class="flex-1 min-w-[140px] px-3 py-2 rounded-lg bg-surface-panel border border-surface-border text-sm text-slate-300 placeholder:text-slate-600 focus:outline-none focus:border-accent/50"
+            autocomplete="off"
+          />
+          <button
+            id="preset-save"
+            type="button"
+            class="px-4 py-2 rounded-lg bg-accent hover:bg-accent-glow text-white text-xs font-semibold uppercase tracking-wide shadow-lg shadow-accent/30"
+          >
+            Save
+          </button>
         </div>
-        <ul class="space-y-1.5 max-h-28 overflow-y-auto">
-          <li class="flex items-center justify-between gap-2 px-3 py-2 rounded-lg bg-surface-panel border border-accent/30">
-            <span class="text-sm text-white truncate">Warm Pad</span>
-            <div class="flex gap-1 shrink-0">
-              <button type="button" class="px-2 py-1 text-[10px] uppercase font-semibold rounded bg-accent/20 text-accent-glow border border-accent/40">Load</button>
-              <button type="button" class="px-2 py-1 text-[10px] uppercase font-semibold rounded bg-surface border border-surface-border text-slate-400">Delete</button>
-            </div>
-          </li>
-          <li class="flex items-center justify-between gap-2 px-3 py-2 rounded-lg bg-surface-panel border border-surface-border">
-            <span class="text-sm text-slate-300 truncate">Pluck Lead</span>
-            <div class="flex gap-1 shrink-0">
-              <button type="button" class="px-2 py-1 text-[10px] uppercase font-semibold rounded bg-surface border border-surface-border text-slate-400 hover:text-white">Load</button>
-              <button type="button" class="px-2 py-1 text-[10px] uppercase font-semibold rounded bg-surface border border-surface-border text-slate-500">Delete</button>
-            </div>
-          </li>
-          <li class="flex items-center justify-between gap-2 px-3 py-2 rounded-lg bg-surface-panel border border-surface-border">
-            <span class="text-sm text-slate-300 truncate">Default</span>
-            <div class="flex gap-1 shrink-0">
-              <button type="button" class="px-2 py-1 text-[10px] uppercase font-semibold rounded bg-surface border border-surface-border text-slate-400 hover:text-white">Load</button>
-              <button type="button" class="px-2 py-1 text-[10px] uppercase font-semibold rounded bg-surface border border-surface-border text-slate-500">Delete</button>
-            </div>
-          </li>
-        </ul>
+        <ul id="preset-list" class="space-y-1.5 max-h-28 overflow-y-auto" role="list"></ul>
       </section>
     </div>
   </main>

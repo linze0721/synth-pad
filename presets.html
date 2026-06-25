@@ -78,10 +78,11 @@
               <p class="mt-1 text-sm text-slate-400">
                 Loaded automatically on first visit when nothing is saved yet. Restores sawtooth, balanced ADSR, light filter, and subtle stereo delay.
               </p>
-              <p class="mt-2 font-mono text-xs text-slate-500">Key: <span class="text-slate-400">synth-pad:default</span></p>
+              <p class="mt-2 font-mono text-xs text-slate-500">Key: <span id="storage-key-display" class="text-slate-400">synth-pad-presets</span></p>
             </div>
           </div>
           <button
+            id="load-default-preset"
             type="button"
             class="w-full shrink-0 rounded-lg bg-accent px-4 py-2.5 text-sm font-semibold text-surface shadow-lg shadow-accent/20 transition hover:bg-accent-glow hover:text-surface sm:w-auto"
           >
@@ -96,10 +97,11 @@
           Captures oscillator, envelopes, filter, delay, master volume, and octave — then writes JSON to
           <code class="font-mono text-xs text-slate-300">localStorage</code> under your preset list.
         </p>
-        <form class="mt-4 flex flex-col gap-3 sm:flex-row sm:items-end" onsubmit="return false;">
+        <form id="preset-save-form" class="mt-4 flex flex-col gap-3 sm:flex-row sm:items-end" onsubmit="return false;">
           <label class="flex flex-1 flex-col gap-1.5">
             <span class="text-xs font-medium uppercase tracking-wide text-slate-500">Preset name</span>
             <input
+              id="preset-save-name"
               type="text"
               placeholder="e.g. Warm Pad, Pluck Lead"
               class="w-full rounded-lg border border-surface-border bg-surface px-4 py-2.5 text-sm text-white placeholder:text-slate-600 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/30"
@@ -121,7 +123,7 @@
         <div class="flex flex-col gap-2 border-b border-surface-border px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
           <div>
             <h2 id="list-heading" class="text-base font-semibold text-white">Your presets</h2>
-            <p class="text-xs text-slate-500">3 stored locally · persists after refresh on this device</p>
+            <p id="preset-count-label" class="text-xs text-slate-500">0 stored locally · persists after refresh on this device</p>
           </div>
           <span class="inline-flex w-fit items-center gap-1.5 rounded-full border border-surface-border bg-surface-panel px-3 py-1 text-xs text-slate-400">
             <span class="h-1.5 w-1.5 rounded-full bg-emerald-400" aria-hidden="true"></span>
@@ -129,50 +131,7 @@
           </span>
         </div>
 
-        <ul class="divide-y divide-surface-border" role="list">
-          <li class="preset-row bg-accent/5 px-5 py-4 sm:px-6">
-            <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-              <div class="min-w-0">
-                <div class="flex flex-wrap items-center gap-2">
-                  <p class="truncate font-medium text-white">Warm Pad</p>
-                  <span class="rounded bg-accent/20 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-accent-glow">Active</span>
-                </div>
-                <p class="mt-0.5 font-mono text-xs text-slate-500">Updated Mar 12, 2026 · saw · delay 25%</p>
-              </div>
-              <div class="preset-actions flex gap-2">
-                <button type="button" class="rounded-lg bg-accent px-3 py-2 text-xs font-semibold text-surface">Load</button>
-                <button type="button" class="rounded-lg border border-surface-border px-3 py-2 text-xs font-medium text-slate-300 hover:border-slate-500">Rename</button>
-                <button type="button" class="rounded-lg border border-danger/30 px-3 py-2 text-xs font-medium text-danger hover:bg-danger/10">Delete</button>
-              </div>
-            </div>
-          </li>
-          <li class="preset-row px-5 py-4 transition hover:bg-surface-panel/50 sm:px-6">
-            <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-              <div class="min-w-0">
-                <p class="truncate font-medium text-slate-200">Pluck Lead</p>
-                <p class="mt-0.5 font-mono text-xs text-slate-500">Created Mar 8, 2026 · square · filter on</p>
-              </div>
-              <div class="preset-actions flex gap-2">
-                <button type="button" class="rounded-lg border border-accent/50 bg-surface-panel px-3 py-2 text-xs font-semibold text-accent-glow hover:bg-accent/10">Load</button>
-                <button type="button" class="rounded-lg border border-surface-border px-3 py-2 text-xs font-medium text-slate-300 hover:border-slate-500">Rename</button>
-                <button type="button" class="rounded-lg border border-danger/30 px-3 py-2 text-xs font-medium text-danger hover:bg-danger/10">Delete</button>
-              </div>
-            </div>
-          </li>
-          <li class="preset-row px-5 py-4 transition hover:bg-surface-panel/50 sm:px-6">
-            <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-              <div class="min-w-0">
-                <p class="truncate font-medium text-slate-200">Deep Sub</p>
-                <p class="mt-0.5 font-mono text-xs text-slate-500">Created Feb 28, 2026 · sine · octave −1</p>
-              </div>
-              <div class="preset-actions flex gap-2">
-                <button type="button" class="rounded-lg border border-accent/50 bg-surface-panel px-3 py-2 text-xs font-semibold text-accent-glow hover:bg-accent/10">Load</button>
-                <button type="button" class="rounded-lg border border-surface-border px-3 py-2 text-xs font-medium text-slate-300 hover:border-slate-500">Rename</button>
-                <button type="button" class="rounded-lg border border-danger/30 px-3 py-2 text-xs font-medium text-danger hover:bg-danger/10">Delete</button>
-              </div>
-            </div>
-          </li>
-        </ul>
+        <ul id="preset-list" class="divide-y divide-surface-border" role="list"></ul>
       </section>
 
       <aside class="rounded-lg border border-surface-border/80 bg-surface/80 px-4 py-3 text-xs leading-relaxed text-slate-500">
@@ -185,5 +144,6 @@
       <a href="index.html" class="text-accent-dim underline-offset-2 hover:text-accent hover:underline">Return to main synth</a>
     </footer>
   </div>
+  <script type="module" src="/src/presets/presetsPage.js"></script>
 </body>
 </html>
