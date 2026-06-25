@@ -169,12 +169,12 @@ export function initKeyboard(engine, options = {}) {
     if (isTypingTarget(event.target)) return;
 
     const k = keyFromEvent(event);
-    if (k === 'comma') {
+    if (k === 'comma' || k === 'ArrowDown') {
       event.preventDefault();
       shiftOctave(-1);
       return;
     }
-    if (k === 'period') {
+    if (k === 'period' || k === 'ArrowUp') {
       event.preventDefault();
       shiftOctave(1);
       return;

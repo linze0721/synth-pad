@@ -49,6 +49,16 @@
 
   <main class="flex-1 flex flex-col max-w-6xl w-full mx-auto px-4 sm:px-6 py-5 pb-0 gap-5 min-h-0">
 
+    <div
+      id="web-audio-unavailable"
+      class="hidden rounded-xl border border-amber-500/40 bg-amber-500/10 px-4 py-3 text-sm text-amber-100"
+      role="alert"
+      aria-live="polite"
+    >
+      <p class="font-semibold text-amber-200">Web Audio unavailable</p>
+      <p id="web-audio-unavailable-detail" class="mt-1 text-amber-100/90 text-xs sm:text-sm leading-relaxed"></p>
+    </div>
+
     <section class="rounded-2xl border border-surface-border bg-surface-panel overflow-hidden shadow-xl shadow-black/20">
       <div class="px-4 py-2 border-b border-surface-border flex justify-between items-center">
         <span class="text-xs font-medium uppercase tracking-widest text-slate-400">Waveform</span>
@@ -66,12 +76,14 @@
     <section class="rounded-xl border border-accent/20 bg-accent/5 px-4 py-3 text-sm text-slate-300">
       <p class="font-medium text-accent-glow text-xs uppercase tracking-wider mb-1">How to play</p>
       <p class="leading-relaxed text-slate-400 text-xs sm:text-sm">
-        <span class="text-slate-200">White keys:</span> Z · X · C · V · B · N · M · <kbd class="px-1.5 py-0.5 rounded bg-surface-panel border border-surface-border font-mono text-[11px]">,</kbd>
+        <span class="text-slate-200">White keys:</span> Z · X · C · V · B · N · M
         <span class="text-slate-200 ml-2">Black keys:</span> S · D · G · H · J
         <span class="text-slate-200 ml-2">Octave:</span>
-        <kbd class="px-1.5 py-0.5 rounded bg-surface-panel border border-surface-border font-mono text-[11px]">,</kbd> down ·
-        <kbd class="px-1.5 py-0.5 rounded bg-surface-panel border border-surface-border font-mono text-[11px]">.</kbd> up
-        — click keys below or use your keyboard (Ableton-style chromatic map).
+        <kbd class="px-1.5 py-0.5 rounded bg-surface-panel border border-surface-border font-mono text-[11px]">,</kbd> /
+        <kbd class="px-1.5 py-0.5 rounded bg-surface-panel border border-surface-border font-mono text-[11px]">↓</kbd> down ·
+        <kbd class="px-1.5 py-0.5 rounded bg-surface-panel border border-surface-border font-mono text-[11px]">.</kbd> /
+        <kbd class="px-1.5 py-0.5 rounded bg-surface-panel border border-surface-border font-mono text-[11px]">↑</kbd> up
+        — click the virtual keyboard or press <kbd class="px-1.5 py-0.5 rounded bg-surface-panel border border-surface-border font-mono text-[11px]">Tab</kbd> to focus it, then play (Ableton-style chromatic map).
       </p>
     </section>
 
@@ -228,7 +240,13 @@
           <span class="text-slate-600 text-[10px]">(, ↓ · . ↑)</span>
         </div>
       </div>
-      <div id="virtual-keyboard" class="relative mx-auto max-w-3xl h-[100px] sm:h-[120px] md:h-[132px] select-none">
+      <div
+        id="virtual-keyboard"
+        class="relative mx-auto max-w-3xl h-[100px] sm:h-[120px] md:h-[132px] select-none outline-none focus-visible:ring-2 focus-visible:ring-accent/60 focus-visible:ring-offset-2 focus-visible:ring-offset-surface-raised rounded-lg"
+        tabindex="0"
+        role="application"
+        aria-label="Virtual keyboard — use computer keys Z through M and S D G H J for notes when focused"
+      >
         <div class="absolute inset-0 flex">
           <div class="key-white flex-1 rounded-b-lg mx-[1px] relative flex flex-col justify-end items-center pb-2 cursor-pointer" data-key="z" data-semitone="0" role="button" tabindex="-1">
             <span class="text-[9px] sm:text-[10px] font-mono font-medium text-slate-600 key-label">Z</span>
