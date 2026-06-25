@@ -1,14 +1,5 @@
-import { defineConfig } from 'vite'
-import { resolve } from 'node:path'
+import { defineConfig } from 'vite';
 
 export default defineConfig({
-  base: '/',
-  build: {
-    rollupOptions: {
-      input: {
-        main: resolve(__dirname, 'index.html'),
-        presets: resolve(__dirname, 'presets.html'),
-      },
-    },
-  },
-})
+  base: process.env.NODE_ENV === 'production' ? '/synth-pad/' : '/',
+});
