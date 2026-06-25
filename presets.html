@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Presets — Synth Pad</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            surface: { DEFAULT: '#0f1117', raised: '#161b26', panel: '#1c2333', border: '#2a3348' },
+            accent: { DEFAULT: '#7c5cff', dim: '#5a3fd4', glow: '#9d85ff' },
+            danger: '#f87171',
+          },
+          fontFamily: { sans: ['"DM Sans"', 'system-ui', 'sans-serif'], mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'] },
+          boxShadow: {
+            glow: '0 0 24px rgba(124, 92, 255, 0.15)',
+            panel: '0 4px 24px rgba(0, 0, 0, 0.45)',
+          },
+        },
+      },
+    };
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    body { background: radial-gradient(ellipse 120% 80% at 50% -20%, #1e293b 0%, #0f1117 55%, #0a0e12 100%); }
+    .preset-row:focus-within { box-shadow: inset 0 0 0 1px rgba(124, 92, 255, 0.35); }
+    @media (max-width: 640px) {
+      .preset-actions { flex-wrap: wrap; }
+    }
+  </style>
+</head>
+<body class="min-h-full font-sans text-slate-200 antialiased">
+  <div class="mx-auto flex min-h-full max-w-4xl flex-col px-4 py-6 sm:px-6 lg:px-8">
+    <header class="mb-8 flex flex-col gap-4 border-b border-surface-border pb-6 sm:flex-row sm:items-center sm:justify-between">
+      <div>
+        <p class="text-xs font-medium uppercase tracking-widest text-accent-dim">Synth Pad</p>
+        <h1 class="mt-1 text-2xl font-semibold tracking-tight text-white sm:text-3xl">Preset Manager</h1>
+        <p class="mt-2 max-w-xl text-sm text-slate-400">
+          Save and recall your patches locally. Presets are stored in your browser via
+          <code class="rounded bg-surface-panel px-1.5 py-0.5 font-mono text-xs text-accent-glow">localStorage</code>
+          — no account, no cloud sync.
+        </p>
+      </div>
+      <nav class="flex shrink-0 gap-2">
+        <a
+          href="index.html"
+          class="inline-flex items-center justify-center gap-2 rounded-lg border border-surface-border bg-surface-raised px-4 py-2.5 text-sm font-medium text-slate-200 transition hover:border-accent-dim hover:text-white focus:outline-none focus:ring-2 focus:ring-accent/40"
+        >
+          <svg class="h-4 w-4 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+          </svg>
+          Back to Synth
+        </a>
+      </nav>
+    </header>
+
+    <main class="flex flex-1 flex-col gap-6 pb-10">
+      <section
+        class="relative overflow-hidden rounded-xl border border-accent/25 bg-gradient-to-br from-surface-panel to-surface-raised p-5 shadow-glow sm:p-6"
+        aria-labelledby="default-preset-heading"
+      >
+        <div class="absolute -right-8 -top-8 h-32 w-32 rounded-full bg-accent/10 blur-2xl" aria-hidden="true"></div>
+        <div class="relative flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+          <div class="flex gap-4">
+            <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-accent/15 text-accent" aria-hidden="true">
+              <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
+              </svg>
+            </div>
+            <div>
+              <h2 id="default-preset-heading" class="text-lg font-semibold text-white">Factory Default</h2>
+              <p class="mt-1 text-sm text-slate-400">
+                Loaded automatically on first visit when nothing is saved yet. Restores sawtooth, balanced ADSR, light filter, and subtle stereo delay.
+              </p>
+              <p class="mt-2 font-mono text-xs text-slate-500">Key: <span class="text-slate-400">synth-pad:default</span></p>
+            </div>
+          </div>
+          <button
+            type="button"
+            class="w-full shrink-0 rounded-lg bg-accent px-4 py-2.5 text-sm font-semibold text-surface shadow-lg shadow-accent/20 transition hover:bg-accent-glow hover:text-surface sm:w-auto"
+          >
+            Load default
+          </button>
+        </div>
+      </section>
+
+      <section class="rounded-xl border border-surface-border bg-surface-panel p-5 shadow-panel sm:p-6" aria-labelledby="save-heading">
+        <h2 id="save-heading" class="text-base font-semibold text-white">Save current sound</h2>
+        <p class="mt-1 text-sm text-slate-400">
+          Captures oscillator, envelopes, filter, delay, master volume, and octave — then writes JSON to
+          <code class="font-mono text-xs text-slate-300">localStorage</code> under your preset list.
+        </p>
+        <form class="mt-4 flex flex-col gap-3 sm:flex-row sm:items-end" onsubmit="return false;">
+          <label class="flex flex-1 flex-col gap-1.5">
+            <span class="text-xs font-medium uppercase tracking-wide text-slate-500">Preset name</span>
+            <input
+              type="text"
+              placeholder="e.g. Warm Pad, Pluck Lead"
+              class="w-full rounded-lg border border-surface-border bg-surface px-4 py-2.5 text-sm text-white placeholder:text-slate-600 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/30"
+            />
+          </label>
+          <button
+            type="submit"
+            class="inline-flex items-center justify-center gap-2 rounded-lg border border-accent/40 bg-accent/10 px-5 py-2.5 text-sm font-semibold text-accent-glow transition hover:bg-accent/20"
+          >
+            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4" />
+            </svg>
+            Save to browser
+          </button>
+        </form>
+      </section>
+
+      <section class="flex flex-1 flex-col rounded-xl border border-surface-border bg-surface-raised shadow-panel" aria-labelledby="list-heading">
+        <div class="flex flex-col gap-2 border-b border-surface-border px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+          <div>
+            <h2 id="list-heading" class="text-base font-semibold text-white">Your presets</h2>
+            <p class="text-xs text-slate-500">3 stored locally · persists after refresh on this device</p>
+          </div>
+          <span class="inline-flex w-fit items-center gap-1.5 rounded-full border border-surface-border bg-surface-panel px-3 py-1 text-xs text-slate-400">
+            <span class="h-1.5 w-1.5 rounded-full bg-emerald-400" aria-hidden="true"></span>
+            localStorage ready
+          </span>
+        </div>
+
+        <ul class="divide-y divide-surface-border" role="list">
+          <li class="preset-row bg-accent/5 px-5 py-4 sm:px-6">
+            <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <div class="min-w-0">
+                <div class="flex flex-wrap items-center gap-2">
+                  <p class="truncate font-medium text-white">Warm Pad</p>
+                  <span class="rounded bg-accent/20 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-accent-glow">Active</span>
+                </div>
+                <p class="mt-0.5 font-mono text-xs text-slate-500">Updated Mar 12, 2026 · saw · delay 25%</p>
+              </div>
+              <div class="preset-actions flex gap-2">
+                <button type="button" class="rounded-lg bg-accent px-3 py-2 text-xs font-semibold text-surface">Load</button>
+                <button type="button" class="rounded-lg border border-surface-border px-3 py-2 text-xs font-medium text-slate-300 hover:border-slate-500">Rename</button>
+                <button type="button" class="rounded-lg border border-danger/30 px-3 py-2 text-xs font-medium text-danger hover:bg-danger/10">Delete</button>
+              </div>
+            </div>
+          </li>
+          <li class="preset-row px-5 py-4 transition hover:bg-surface-panel/50 sm:px-6">
+            <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <div class="min-w-0">
+                <p class="truncate font-medium text-slate-200">Pluck Lead</p>
+                <p class="mt-0.5 font-mono text-xs text-slate-500">Created Mar 8, 2026 · square · filter on</p>
+              </div>
+              <div class="preset-actions flex gap-2">
+                <button type="button" class="rounded-lg border border-accent/50 bg-surface-panel px-3 py-2 text-xs font-semibold text-accent-glow hover:bg-accent/10">Load</button>
+                <button type="button" class="rounded-lg border border-surface-border px-3 py-2 text-xs font-medium text-slate-300 hover:border-slate-500">Rename</button>
+                <button type="button" class="rounded-lg border border-danger/30 px-3 py-2 text-xs font-medium text-danger hover:bg-danger/10">Delete</button>
+              </div>
+            </div>
+          </li>
+          <li class="preset-row px-5 py-4 transition hover:bg-surface-panel/50 sm:px-6">
+            <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <div class="min-w-0">
+                <p class="truncate font-medium text-slate-200">Deep Sub</p>
+                <p class="mt-0.5 font-mono text-xs text-slate-500">Created Feb 28, 2026 · sine · octave −1</p>
+              </div>
+              <div class="preset-actions flex gap-2">
+                <button type="button" class="rounded-lg border border-accent/50 bg-surface-panel px-3 py-2 text-xs font-semibold text-accent-glow hover:bg-accent/10">Load</button>
+                <button type="button" class="rounded-lg border border-surface-border px-3 py-2 text-xs font-medium text-slate-300 hover:border-slate-500">Rename</button>
+                <button type="button" class="rounded-lg border border-danger/30 px-3 py-2 text-xs font-medium text-danger hover:bg-danger/10">Delete</button>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </section>
+
+      <aside class="rounded-lg border border-surface-border/80 bg-surface/80 px-4 py-3 text-xs leading-relaxed text-slate-500">
+        <strong class="font-medium text-slate-400">Privacy &amp; limits:</strong>
+        Data never leaves your machine. Clearing site data or using private browsing may remove presets. Export/import is not in v1 — duplicate names are avoided in the real app via unique IDs.
+      </aside>
+    </main>
+
+    <footer class="mt-auto border-t border-surface-border pt-6 text-center text-xs text-slate-600">
+      <a href="index.html" class="text-accent-dim underline-offset-2 hover:text-accent hover:underline">Return to main synth</a>
+    </footer>
+  </div>
+</body>
+</html>
